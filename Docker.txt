@@ -1,0 +1,102 @@
+
+
+To see all the avalible docker images 
+
+$ docker images 
+
+to search avalible image in docker hub 
+
+$ docker search <<image name>>
+
+to pull image from docker hub
+
+$ docker pull <<image name>>
+
+
+to pull image , start container and given name to container
+
+$ docker run -d --name <<container name>> <<image name>> sh -c "while true; do sleep 3600; done"
+
+
+to start container
+
+$ docker start <<container name>>
+
+to get inside container 
+
+$  docker exec -it <<contaner id >> /bin/bash
+
+to see all contianer running and stop
+
+$ docker ps -a
+
+to stop container
+
+$ docker stop container
+
+to delete container 
+
+$ docker rm <<container id>>
+
+to check the diffrence beetwin base image container
+
+$ docker diff <<con name>>
+
+################################################################################################################################
+
+Lets create a container  
+
+$ docker run -d --name <<container name>> <<image name>> sh -c "while true; do sleep 3600; done"
+
+create some files in /tmp
+
+$ touch abc{1..100}
+
+now create image from a this running container
+
+$ docker commit <<container name>> <<image name>>
+ 
+$ docker images # verify 
+
+now create a conainer from that updated image
+
+$ docker run -d --name <<con name >> <<image name>>
+
+now connect to the contained 
+
+$   docker exec -it <<con name>> /bin/bash
+
+
+######################################Docker File Creation and pushing Docker image to docker hub#####################
+
+Create a dockerfile 
+
+$  vim Dockerfile
+
+FROM    ubuntu:latest  # Image name you want to use
+
+RUN     echo " hello ismail" > /tmp/detail 
+
+MAINTAINER      attarismail6@gmail.com
+
+COPY    abcd     /tmp  # when you want copy file from local to container
+
+buid image now from dockerfile
+
+$ docker build -t <<image name you want give>> .#this dot refers to Dockerfile
+
+now check images 
+
+$ docker images
+
+now give tag to created image 
+
+$  docker tag  <<created image name>> <<dockerid/tag/or name (name which you want this image to be pushed)
+
+Now login to docker give username and password
+
+$ docker login 
+
+now push the image to dockerhub 
+
+docker push <<image name>>
